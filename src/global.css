@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
- background-color: rgb(15 23 42);  
-}
-
 h1 {
     font-size: 90px;
     font-weight: 550;
@@ -27,7 +23,4 @@ h1 span:nth-child(1) {
  }
  h1 span:nth-child(6) {
     color: #ea4335;
- }
- .search-bar{
-     width: 500px;
  }
