@@ -20,8 +20,8 @@ const App = () => {
                         </div>
                     </form>
                 </div>
-                <Footer />
                 <Routes />
+                <Footer />
             </div>
         </div>
     )
