@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useCallback, useContext, useState } from "react";
 
 const ResultContext = createContext();
 const baseUrl = 'https://google-search3.p.rapidapi.com/api/v1';
@@ -6,9 +6,9 @@ const baseUrl = 'https://google-search3.p.rapidapi.com/api/v1';
 export const ResultContextProvider = ({ children }) => {
     const [results, setResults] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [searchTerm, setSearchTerm] = useState('Tesla');
+    const [searchTerm, setSearchTerm] = useState('Elon Musk');
 
-    const getResults = async (type) => {
+    const getResults = useCallback(async (type) => {
         setIsLoading(true);
 
         const response = await fetch(`${baseUrl}${type}`, {
@@ -32,7 +32,7 @@ export const ResultContextProvider = ({ children }) => {
         }
         
         setIsLoading(false);
-    }
+    }, []);
 
     return (
         <ResultContext.Provider value={{ getResults, results, searchTerm, setSearchTerm, isLoading }}>
