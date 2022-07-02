@@ -14,7 +14,7 @@ export const Results = () => {
       if(location.pathname === "/video") {
         getResults(`/search/q=${searchTerm} videos`)
       } else {
-          getResults(`${location.pathname}/q=${searchTerm}&num=40`)
+          getResults(`${location.pathname}/q=${searchTerm}&num=20`)
       }
     }
   }, [searchTerm, location.pathname, getResults]);
@@ -29,13 +29,13 @@ export const Results = () => {
             <div key={index} className="md:w-2/5 w-full border-b dark:border-gray-700 border-gray-200 mb-2">
               <a href={link} target="_blank" rel='noreferrer'>
                 <p className='text-sm'>
-                  {link.length > 30 ? link.substring(0, 30) : JSON.stringify(link)}
+                  {link?.length > 30 ? link.substring(0, 30) : JSON.stringify(link)}
                 </p>
                 <p className='text-lg hover:underline dark:text-blue-300 text-blue-700'>
                   {title}
                 </p>
                 <p className='text-sm pb-4'>
-                  {description.length > 30 ? description.substring(0, 200) + "..." : description}
+                  {description?.length > 30 ? description.substring(0, 200) + "..." : description}
                 </p>
               </a>
             </div>
@@ -44,7 +44,7 @@ export const Results = () => {
       );
     case '/image':
       return (
-        <div className='flex flex-wrap justify-center items-center'>
+        <div className='flex flex-wrap justify-start items-center'>
           {results?.map(({ image, link: { href, title } }, index) => (
             <a className='sm:p-3 p-5' href={href} key={index} target="_blank" rel='noreferrer'>
               <img src={image?.src} alt={title} loading="lazy" />
@@ -58,7 +58,7 @@ export const Results = () => {
     case '/news':
       return (
         <div className='flex flex-wrap justify-between space-y-6 sm:px-56 items-center'>
-          {results?.map(({ links, source, title }, index) => (
+          {results.slice(0, 20)?.map(({ links, source, title }, index) => (
               <div className="md:w-2/5 w-full border-b dark:border-gray-700 border-gray-200 mb-2" key={index}>
                 <a href={links?.[0].href} target="_blank" rel='noreferrer' className='hover:underline'>
                   <p className='text-lg dark:text-blue-300 text-blue-700'>
@@ -79,6 +79,9 @@ export const Results = () => {
         <div className='flex flex-wrap'>
           {results?.map((video, index)=> (
             <div key={index} className='p-2'>
+              <p className='text-sm mt-2 mb-2'>
+                {video?.title?.length > 50 ? video?.title.substring(0, 50) + "..." : video?.title}
+              </p>
               {video?.additional_links?.[0]?.href && <ReactPlayer url={video.additional_links?.[0].href} controls width='355px' height='200px' />}
             </div>
           ))}

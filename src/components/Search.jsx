@@ -22,8 +22,8 @@ export const Search = () => {
         placeholder='Search Mingle or type URL'
         onChange={(e) => setText(e.target.value)}
       />
-      {!text && (
-        <button type='button' className='absolute top-1.5 right-4 text-2xl text-gray-500' onClick={() => setText('')}>
+      {text && (
+        <button type='button' className='absolute top-2 right-4 text-2xl text-gray-700' onClick={() => setText('')}>
           X
         </button>
       )}
