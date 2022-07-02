@@ -14,11 +14,11 @@ export const Search = () => {
   }, [debouncedValue, setSearchTerm])
 
   return (
-    <div className='relative sm:ml-48 md:ml-72 sm:-mt-10 mt-3'>
+    <div className='relative md:ml-32 sm:-mt-10 mt-5'>
       <input
         value={text}
         type="text"
-        className='sm:w-96 w-80 h-10 dark:bg-gray-200 border rounded-full shadow-sm outline-none p-6 text-black hover:shadow-lg'
+        className='lg:w-[800px] w-full h-10 dark:bg-gray-200 border rounded-full shadow-sm outline-none p-6 text-black hover:shadow-lg'
         placeholder='Search Mingle or type URL'
         onChange={(e) => setText(e.target.value)}
       />

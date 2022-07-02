@@ -8,6 +8,10 @@ module.exports = {
     extend: {
       margin: {
         '230px': '230px',
+      },
+      width: {
+        '800px': '800px',
+        '700px': '700px',
       }
     },
   },

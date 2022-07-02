@@ -1,11 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-h1 {
-    font-size: 90px;
-    font-weight: 550;
-}    
+ 
 h1 span:nth-child(1) {
     color: #4285f4;
  }
