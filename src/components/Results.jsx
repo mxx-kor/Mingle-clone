@@ -25,14 +25,17 @@ export const Results = () => {
     case '/search':
       return (
         <div className='flex flex-wrap justify-between space-y-6 sm:px-56'>
-          {results?.map(({ link, title }, index) => (
-            <div key={index} className="md:w-2/5 w-full">
+          {results?.map(({ link, title, description }, index) => (
+            <div key={index} className="md:w-2/5 w-full border-b dark:border-gray-700 border-gray-200 mb-2">
               <a href={link} target="_blank" rel='noreferrer'>
                 <p className='text-sm'>
                   {link.length > 30 ? link.substring(0, 30) : JSON.stringify(link)}
                 </p>
                 <p className='text-lg hover:underline dark:text-blue-300 text-blue-700'>
                   {title}
+                </p>
+                <p className='text-sm pb-4'>
+                  {description.length > 30 ? description.substring(0, 200) + "..." : description}
                 </p>
               </a>
             </div>
@@ -56,13 +59,13 @@ export const Results = () => {
       return (
         <div className='flex flex-wrap justify-between space-y-6 sm:px-56 items-center'>
           {results?.map(({ links, source, title }, index) => (
-              <div className="md:w-2/5 w-full" key={index}>
+              <div className="md:w-2/5 w-full border-b dark:border-gray-700 border-gray-200 mb-2" key={index}>
                 <a href={links?.[0].href} target="_blank" rel='noreferrer' className='hover:underline'>
                   <p className='text-lg dark:text-blue-300 text-blue-700'>
                     {title}
                   </p>
                 </a>
-                <div className='flex gap-4'>
+                <div className='flex pb-4'>
                   <a href={source?.href} target="_blank" rel='noreferrer'>
                     {source?.href}
                   </a>
