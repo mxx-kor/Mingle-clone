@@ -11,7 +11,7 @@ module.exports = {
       },
       width: {
         '800px': '800px',
-        '700px': '700px',
+        '500px': '500px',
       }
     },
   },
