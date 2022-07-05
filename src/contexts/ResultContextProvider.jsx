@@ -7,7 +7,7 @@ const baseUrl = 'https://google';
 export const ResultContextProvider = ({ children }) => {
     const [results, setResults] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [searchTerm, setSearchTerm] = useState('Elon Musk');
+    const [searchTerm, setSearchTerm] = useState('');
 
     const getResults = useCallback(async (type) => {
         setIsLoading(true);
