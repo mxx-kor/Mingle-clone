@@ -1,12 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Routes as Switch, Route} from 'react-router-dom'
 import { Navbar } from './Navbar'
-import { Footer } from './Footer'
 
 import { Results } from './Results'
 
-export function Routes() {
-  const [darkTheme, setDarkTheme] = useState(false);
+export function Routes({ darkTheme, setDarkTheme }) {
 
   return (
     <div className={darkTheme ? 'dark' : ''}>
@@ -17,7 +15,6 @@ export function Routes() {
             <Route exact path={path} key={index} element={<Results />} />
           ))}
         </Switch>
-        <Footer />
       </div>
     </div>
   )

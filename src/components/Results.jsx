@@ -58,7 +58,8 @@ export const Results = () => {
     case '/news':
       return (
         <div className='flex flex-wrap justify-between space-y-6 sm:px-56 items-center'>
-          {results.slice(0, 20)?.map(({ links, source, title }, index) => (
+          {results?.length === 0 ? <div className='mt-[500px] text-4xl text-center'>No Result 😥</div> : 
+            results?.slice(0, 20)?.map(({ links, source, title }, index) => (
               <div className="md:w-2/5 w-full border-b dark:border-gray-700 border-gray-200 mb-2" key={index}>
                 <a href={links?.[0].href} target="_blank" rel='noreferrer' className='hover:underline'>
                   <p className='text-lg dark:text-blue-300 text-blue-700'>
@@ -71,7 +72,8 @@ export const Results = () => {
                   </a>
                 </div>
               </div>
-          ))}
+            ))
+          }
         </div>
       );
     case '/video':

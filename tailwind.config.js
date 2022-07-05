@@ -12,6 +12,9 @@ module.exports = {
       width: {
         '800px': '800px',
         '500px': '500px',
+      },
+      height: {
+        '85vh' : '85vh',
       }
     },
   },
