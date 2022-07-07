@@ -11,28 +11,36 @@ export const ResultContextProvider = ({ children }) => {
 
     const getResults = useCallback(async (type) => {
         setIsLoading(true);
+        try {
+            const response = await fetch(`${baseUrl}${type}`, {
+                method: 'GET',
+                headers: {
+                    'X-User-Agent': 'desktop',
+                    'X-Proxy-Location': 'EU',
+                    'X-RapidAPI-Key': process.env.REACT_APP_API_KEY,
+                    'X-RapidAPI-Host': 'google-search3.p.rapidapi.com'
+                }
+            });
 
-        const response = await fetch(`${baseUrl}${type}`, {
-            method: 'GET',
-            headers: {
-                'X-User-Agent': 'desktop',
-                'X-Proxy-Location': 'EU',
-                'X-RapidAPI-Key': '20fd69a613mshfb876fe5b78d611p107431jsn50062e01807a',
-                'X-RapidAPI-Host': 'google-search3.p.rapidapi.com'
-              }
-        });
+            const data = await response.json();
 
-        const data = await response.json();
+            if (response.status === 429) alert('무료 API 데이터를 모두 소진하여 검색을 진행할 수 없습니다.')
 
-        if(type.includes('/news')) {
-            setResults(data.entries);
-        } else if (type.includes('/image')) {
-            setResults(data.image_results);
-        } else {
-            setResults(data.results);
+            if(type.includes('/news')) {
+                setResults(data.entries);
+            } else if (type.includes('/image')) {
+                setResults(data.image_results);
+            } else {
+                setResults(data.results);
+            } 
+
+            setIsLoading(false);
+
+        } catch (response) {
+            setIsLoading(false);
+
+            alert(`Error, 검색 결과를 가져오지 못했습니다.`);
         }
-        
-        setIsLoading(false);
     }, []);
 
     return (
