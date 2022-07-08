@@ -6,6 +6,7 @@ const links = [
     { url: '/news', text: '📰 News' },
     { url: '/image', text: '📸 Images' },
     { url: '/video', text: '📺 Videos' },
+    { url: '/maps', text: '🗺 Maps'}
 ];
 
 export const Links = () => {
