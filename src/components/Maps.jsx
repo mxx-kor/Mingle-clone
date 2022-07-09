@@ -1,0 +1,22 @@
+import React, { useEffect } from 'react'
+
+const { kakao } = window;
+
+export const Maps = () => {
+  useEffect(() => {
+    let container = document.getElementById("map");
+
+    let options = {
+      center: new kakao.maps.LatLng(33.450701, 126.570667),
+      level: 3
+    };
+
+    let map = new kakao.maps.Map(container, options);
+
+    console.log(map);
+  }, []);
+
+  return (
+    <div id='map' className='h-80'></div>
+  )
+}

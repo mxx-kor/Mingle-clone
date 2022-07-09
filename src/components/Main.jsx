@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useResultContext } from '../contexts/ResultContextProvider';
+import { Link } from 'react-router-dom';
 
 export const Main = ({ darkTheme, setDarkTheme }) => {
   const [text, setText] = useState('');
@@ -9,6 +10,11 @@ export const Main = ({ darkTheme, setDarkTheme }) => {
 
   return (
     <div className='h-[85vh]'>
+      <Link to='/maps'>
+        <button className="text-xl dark:bg-gray-900 dark:text-gray-200 bg-white border rounded-full px-2 py-1 hover:shadow-lg absolute right-36 top-4">
+          MAP
+        </button>
+      </Link>
       <button type="button" onClick={() => setDarkTheme(!darkTheme)} className="text-xl dark:bg-gray-900 dark:text-gray-200 bg-white border rounded-full px-2 py-1 hover:shadow-lg absolute right-6 top-4">
           {darkTheme ? '💡 Light' : '🌙 Dark'}
       </button>
