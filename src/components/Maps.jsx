@@ -4,8 +4,9 @@ const { kakao } = window;
 
 
 export const Maps = () => {
-  const [InputText, setInputText] = useState('')
-  const [Place, setPlace] = useState('')
+  const [InputText, setInputText] = useState('');
+  const [place, setPlace] = useState('');
+  const [placeList, setplaceList] = useState([]);
 
   const onChange = (e) => {
     setInputText(e.target.value)
@@ -28,7 +29,7 @@ export const Maps = () => {
 
     const ps = new kakao.maps.services.Places()
 
-    ps.keywordSearch(Place, placesSearchCB)
+    ps.keywordSearch(place, placesSearchCB)
 
     function placesSearchCB(data, status, pagination) {
       if (status === kakao.maps.services.Status.OK) {
@@ -40,7 +41,39 @@ export const Maps = () => {
         }
 
         map.setBounds(bounds)
+        displayPagination(pagination)
+        setplaceList(data)
       }
+    }
+
+    function displayPagination(pagination) {
+      var paginationEl = document.getElementById('pagination'),
+        fragment = document.createDocumentFragment(),
+        i
+
+      // 기존에 추가된 페이지 번호 삭제
+      while (paginationEl.hasChildNodes()) {
+        paginationEl.removeChild(paginationEl.lastChild)
+      }
+
+      for (i = 1; i <= pagination.last; i++) {
+        var el = document.createElement('a')
+        el.href = '#'
+        el.innerHTML = i
+
+        if (i === pagination.current) {
+          el.className = 'on'
+        } else {
+          el.onclick = (function (i) {
+            return function () {
+              pagination.gotoPage(i)
+            }
+          })(i)
+        }
+
+        fragment.appendChild(el)
+      }
+      paginationEl.appendChild(fragment)
     }
 
     function displayMarker(place) {
@@ -56,15 +89,38 @@ export const Maps = () => {
         infowindow.open(map, marker)
       })
     }
-  }, [Place])
+  }, [place])
 
   return (
     <>
-      <form className="inputForm" onSubmit={handleSubmit}>
-        <input placeholder="검색어를 입력하세요" onChange={onChange} value={InputText} />
-        <button type="submit">검색</button>
-      </form>
-      <div id="myMap" className='h-screen text-black'>
+      <div className='flex'>
+        <div>
+          <form className="inputForm" onSubmit={handleSubmit}>
+            <input className='text-black' placeholder="검색어를 입력하세요" onChange={onChange} value={InputText} />
+            <button type="submit">검색</button>
+          </form>
+          <div id="myMap" className='h-96 w-96 text-black'></div>
+        </div>
+        <div id="result-list" className='text-white'>
+          {placeList.map((item, i) => (
+            <div key={i}>
+              <span>{i + 1}</span>
+              <div>
+                <h5>{item.place_name}</h5>
+                {item.road_address_name ? (
+                  <div>
+                    <span>{item.road_address_name}</span>
+                    <span>{item.address_name}</span>
+                  </div>
+                ) : (
+                  <span>{item.address_name}</span>
+                )}
+                <span>{item.phone}</span>
+              </div>
+            </div>
+          ))}
+          <div id="pagination"></div>
+        </div>
       </div>
     </>
   )
