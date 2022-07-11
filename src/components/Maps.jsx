@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react'
+import { useResultContext } from '../contexts/ResultContextProvider';
+import { links } from './Links';
+import { Link } from 'react-router-dom';
 
 const { kakao } = window;
 
 
 export const Maps = () => {
-  const [InputText, setInputText] = useState('');
-  const [place, setPlace] = useState('');
+  const { searchTerm } = useResultContext()
+  const [InputText, setInputText] = useState(searchTerm);
+  const [place, setPlace] = useState(searchTerm);
   const [placeList, setplaceList] = useState([]);
 
   const onChange = (e) => {
@@ -95,13 +99,18 @@ export const Maps = () => {
     <>
       <div className='flex'>
         <div>
+          {links.slice(0,-1).map(({ url, text }, i) => (
+            <Link key={i} to={url}>{text}</Link>
+          ))}
+        </div>
+        <div>
           <form className="inputForm" onSubmit={handleSubmit}>
-            <input className='text-black' placeholder="검색어를 입력하세요" onChange={onChange} value={InputText} />
+            <input className='lg:w-[800px] w-full h-10 dark:bg-gray-200 border rounded-full shadow-sm outline-none p-6 text-black hover:shadow-lg' placeholder="검색어를 입력하세요" onChange={onChange} value={InputText} />
             <button type="submit">검색</button>
           </form>
-          <div id="myMap" className='h-96 w-96 text-black'></div>
+          <div id="myMap" className='h-screen w-96 text-black'></div>
         </div>
-        <div id="result-list" className='text-white'>
+        <div id="result-list" className='text-black bg-white'>
           {placeList.map((item, i) => (
             <div key={i}>
               <span>{i + 1}</span>

@@ -3,7 +3,7 @@ import { Routes } from './components/Routes'
 import { Route, Routes as Switch } from "react-router-dom";
 
 import { Main } from "./components/Main";
-import { Footer } from "./components/Footer";
+import { Maps } from "./components/Maps";
 
 const App = () => {
     const [darkTheme, setDarkTheme] = useState(true);
@@ -14,8 +14,8 @@ const App = () => {
                 <Switch>
                     <Route exact path='/' element={<Main darkTheme={darkTheme} setDarkTheme={setDarkTheme} />} />
                     <Route path='/*' element={<Routes darkTheme={darkTheme} setDarkTheme={setDarkTheme} />} />
+                    <Route exact path='/maps' element={<Maps />} />
                 </Switch>
-                <Footer />  
             </div>
         </div>
     )

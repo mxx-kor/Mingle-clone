@@ -3,7 +3,7 @@ import { Routes as Switch, Route} from 'react-router-dom'
 
 import { Navbar } from './Navbar'
 import { Results } from './Results'
-import { Maps } from './Maps'
+import { Footer } from './Footer'
 
 export function Routes({ darkTheme, setDarkTheme }) {
 
@@ -15,8 +15,8 @@ export function Routes({ darkTheme, setDarkTheme }) {
           {['/search', '/image', '/news', '/video'].map((path, index) => (
             <Route exact path={path} key={index} element={<Results />} />
           ))}
-          <Route exact path='/maps' element={<Maps />} />
         </Switch>
+        <Footer />  
       </div>
     </div>
   )
