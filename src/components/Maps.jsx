@@ -58,7 +58,6 @@ export const Maps = () => {
       let paginationEl = document.getElementById('pagination'),
         fragment = document.createDocumentFragment(),i
 
-      // 기존에 추가된 페이지 번호 삭제
       while (paginationEl.hasChildNodes()) {
         paginationEl.removeChild(paginationEl.lastChild)
       }
@@ -67,10 +66,10 @@ export const Maps = () => {
         let el = document.createElement('a')
         el.href = '#'
         el.innerHTML = i
-        el.className = "text-xl dark:bg-gray-900 dark:text-gray-200 bg-white border rounded-lg px-2"
+        el.className = "text-xl dark:bg-gray-900 dark:text-gray-200 bg-white border rounded-lg px-2 mr-4"
 
         if (i === pagination.current) {
-          el.className = 'on text-xl dark:bg-gray-900 dark:text-gray-200 bg-white border rounded-lg px-2'
+          el.className = 'on text-xl dark:bg-gray-400 dark:text-gray-200 bg-white border rounded-lg px-2 mr-4'
         } else {
           el.onclick = (function (i) {
             return function () {
@@ -90,9 +89,8 @@ export const Maps = () => {
         position: new kakao.maps.LatLng(place.y, place.x),
       })
 
-      // 마커에 클릭이벤트를 등록합니다
       kakao.maps.event.addListener(marker, 'click', function () {
-        infowindow.setContent('<div>' + place.place_name + '</div>')
+        infowindow.setContent('<div>'+ place.address_name.slice(0,2) + ' ' + place.place_name + '</div>')
         infowindow.open(map, marker)
       })
     }
@@ -101,7 +99,7 @@ export const Maps = () => {
   return (
     <>
       <div className='flex'>
-        <div className='w-1/4 h-screen'>
+        <div className='lg:w-1/5 md:w-0'>
           <form className="inputForm" onSubmit={handleSubmit}>
             <input 
               className='dark:bg-gray-200 w-11/12 border shadow-sm outline-none p-2 text-black hover:shadow-lg' 
@@ -111,10 +109,10 @@ export const Maps = () => {
             />
             <button className='w-1/12 justify-center items-center' type="submit">검색</button>
           </form>
-          <div id="result-list" className='h-10/12 overflow-y-auto dark:bg-gray-900 dark:text-gray-200 bg-white border'>
+          <div id="result-list" className='h-[92vh] overflow-y-auto dark:bg-gray-900 dark:text-gray-200 bg-white border'>
             {placeList.map((item, i) => (
               <div 
-                className='cursor-pointer hover:border rounded-lg my-3 py-2' 
+                className='cursor-pointer hover:outline outline-1 rounded-lg my-3 py-2' 
                 onClick={() => {
                   setInputText(item.place_name);
                   setPlace(item.place_name);
@@ -136,9 +134,10 @@ export const Maps = () => {
               </div>
             ))}
           </div>
-          <div className='flex w-full justify-center items-center mt-2' id="pagination"></div>
+          <div className='flex w-full justify-center items-center mt-4' id="pagination"></div>
         </div>
-        <div className='w-3/4 relative'>
+        <div className='lg:w-4/5 md:w-full relative'>
+          <button className='items-center absolute top-2/4 z-10'>목록보기</button>
           <div id="myMap" className='h-screen text-black'>
             <div className='absolute z-10 top-2'>
               {links.slice(0,-1).map(({ url, text }, i) => (
