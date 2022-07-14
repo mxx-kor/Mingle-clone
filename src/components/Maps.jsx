@@ -7,7 +7,7 @@ const { kakao } = window;
 
 
 export const Maps = () => {
-  const { searchTerm } = useResultContext()
+  const { searchTerm, setSearchTerm } = useResultContext()
   const [InputText, setInputText] = useState(searchTerm);
   const [place, setPlace] = useState(searchTerm);
   const [placeList, setplaceList] = useState([]);
@@ -18,8 +18,12 @@ export const Maps = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    setPlace(InputText)
-    setInputText('')
+    if(InputText === "") {
+      alert('검색어를 입력해주세요')
+    } else {
+      setPlace(InputText)
+      setSearchTerm(InputText)
+    }
   }
 
   useEffect(() => {
@@ -51,9 +55,8 @@ export const Maps = () => {
     }
 
     function displayPagination(pagination) {
-      var paginationEl = document.getElementById('pagination'),
-        fragment = document.createDocumentFragment(),
-        i
+      let paginationEl = document.getElementById('pagination'),
+        fragment = document.createDocumentFragment(),i
 
       // 기존에 추가된 페이지 번호 삭제
       while (paginationEl.hasChildNodes()) {
@@ -61,12 +64,13 @@ export const Maps = () => {
       }
 
       for (i = 1; i <= pagination.last; i++) {
-        var el = document.createElement('a')
+        let el = document.createElement('a')
         el.href = '#'
         el.innerHTML = i
+        el.className = "text-xl dark:bg-gray-900 dark:text-gray-200 bg-white border rounded-lg px-2"
 
         if (i === pagination.current) {
-          el.className = 'on'
+          el.className = 'on text-xl dark:bg-gray-900 dark:text-gray-200 bg-white border rounded-lg px-2'
         } else {
           el.onclick = (function (i) {
             return function () {
@@ -88,8 +92,7 @@ export const Maps = () => {
 
       // 마커에 클릭이벤트를 등록합니다
       kakao.maps.event.addListener(marker, 'click', function () {
-        // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
-        infowindow.setContent('<div className="text-2xl p-4">' + place.place_name + '</div>')
+        infowindow.setContent('<div>' + place.place_name + '</div>')
         infowindow.open(map, marker)
       })
     }
@@ -100,15 +103,26 @@ export const Maps = () => {
       <div className='flex'>
         <div className='w-1/4 h-screen'>
           <form className="inputForm" onSubmit={handleSubmit}>
-            <input className='dark:bg-gray-200 border shadow-sm outline-none p-2 text-black hover:shadow-lg' placeholder="검색어를 입력하세요" onChange={onChange} value={InputText} />
-            <button type="submit">검색</button>
+            <input 
+              className='dark:bg-gray-200 w-11/12 border shadow-sm outline-none p-2 text-black hover:shadow-lg' 
+              placeholder="검색어를 입력하세요" 
+              onChange={onChange} 
+              value={InputText} 
+            />
+            <button className='w-1/12 justify-center items-center' type="submit">검색</button>
           </form>
-          <div id="result-list" className='h-5/6 overflow-y-auto text-black bg-white'>
+          <div id="result-list" className='h-10/12 overflow-y-auto dark:bg-gray-900 dark:text-gray-200 bg-white border'>
             {placeList.map((item, i) => (
-              <div key={i}>
-                <span>{i + 1}</span>
+              <div 
+                className='cursor-pointer hover:border rounded-lg my-3 py-2' 
+                onClick={() => {
+                  setInputText(item.place_name);
+                  setPlace(item.place_name);
+                }} 
+                key={i}
+                >
                 <div>
-                  <h5>{item.place_name}</h5>
+                  <span>{i + 1}. {item.place_name}</span>
                   {item.road_address_name ? (
                     <div>
                       <span>{item.road_address_name}</span>
@@ -122,13 +136,13 @@ export const Maps = () => {
               </div>
             ))}
           </div>
-          <div id="pagination"></div>
+          <div className='flex w-full justify-center items-center mt-2' id="pagination"></div>
         </div>
         <div className='w-3/4 relative'>
           <div id="myMap" className='h-screen text-black'>
-            <div className='absolute z-10'>
+            <div className='absolute z-10 top-2'>
               {links.slice(0,-1).map(({ url, text }, i) => (
-                <Link key={i} to={url}>{text}</Link>
+                <Link className='text-xl border rounded-full px-2 py-1 mr-1 hover:shadow-lg' key={i} to={url}>{text}</Link>
               ))}
             </div>
           </div>
