@@ -11,6 +11,7 @@ export const Maps = () => {
   const [InputText, setInputText] = useState(searchTerm);
   const [place, setPlace] = useState(searchTerm);
   const [placeList, setplaceList] = useState([]);
+  const [toggle, setToggle] = useState(true);
 
   const onChange = (e) => {
     setInputText(e.target.value)
@@ -24,6 +25,11 @@ export const Maps = () => {
       setPlace(InputText)
       setSearchTerm(InputText)
     }
+  }
+
+  const onToggle = () => {
+    setToggle((previous) => !previous)
+    console.log(toggle)
   }
 
   useEffect(() => {
@@ -98,53 +104,55 @@ export const Maps = () => {
 
   return (
     <>
-      <div className='flex'>
-        <div className='lg:w-1/5 md:w-0'>
-          <form className="inputForm" onSubmit={handleSubmit}>
-            <input 
-              className='dark:bg-gray-200 w-11/12 border shadow-sm outline-none p-2 text-black hover:shadow-lg' 
-              placeholder="검색어를 입력하세요" 
-              onChange={onChange} 
-              value={InputText} 
-            />
-            <button className='w-1/12 justify-center items-center' type="submit">검색</button>
-          </form>
-          <div id="result-list" className='h-[92vh] overflow-y-auto dark:bg-gray-900 dark:text-gray-200 bg-white border'>
-            {placeList.map((item, i) => (
-              <div 
-                className='cursor-pointer hover:outline outline-1 rounded-lg my-3 py-2' 
-                onClick={() => {
-                  setInputText(item.place_name);
-                  setPlace(item.place_name);
-                }} 
-                key={i}
-                >
-                <div>
-                  <span>{i + 1}. {item.place_name}</span>
-                  {item.road_address_name ? (
-                    <div>
-                      <span>{item.road_address_name}</span>
+      {toggle ? 
+        <div className='absolute z-10'>
+          <div className='w-full h-screen'>
+            <form className="inputForm" onSubmit={handleSubmit}>
+              <input 
+                className='dark:bg-gray-200 w-11/12 border shadow-sm outline-none p-2 text-black hover:shadow-lg' 
+                placeholder="검색어를 입력하세요" 
+                onChange={onChange} 
+                value={InputText} 
+              />
+              <button className='w-1/12 justify-center items-center' type="submit">검색</button>
+            </form>
+            <div id="result-list" className='h-[83%] overflow-y-auto dark:bg-gray-900 dark:text-gray-200 bg-white border'>
+              {placeList.map((item, i) => (
+                <div 
+                  className='cursor-pointer hover:outline outline-1 rounded-lg my-3 py-2' 
+                  onClick={() => {
+                    setInputText(item.place_name);
+                    setPlace(item.place_name);
+                  }} 
+                  key={i}
+                  >
+                  <div>
+                    <span>{i + 1}. {item.place_name}</span>
+                    {item.road_address_name ? (
+                      <div>
+                        <span>{item.road_address_name}</span>
+                        <span>{item.address_name}</span>
+                      </div>
+                    ) : (
                       <span>{item.address_name}</span>
-                    </div>
-                  ) : (
-                    <span>{item.address_name}</span>
-                  )}
-                  <span>{item.phone}</span>
+                    )}
+                    <span>{item.phone}</span>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+            <div className='flex w-full justify-center items-center mt-4' id="pagination"></div>
           </div>
-          <div className='flex w-full justify-center items-center mt-4' id="pagination"></div>
-        </div>
-        <div className='lg:w-4/5 md:w-full relative'>
-          <button className='items-center absolute top-2/4 z-10'>목록보기</button>
+        </div> : ''
+      }
+      <div className='lg:w-full relative'>
+        <button className='items-center absolute top-2/4 z-10' onClick={onToggle}>목록보기</button>
           <div id="myMap" className='h-screen text-black'>
             <div className='absolute z-10 top-2'>
               {links.slice(0,-1).map(({ url, text }, i) => (
-                <Link className='text-xl border rounded-full px-2 py-1 mr-1 hover:shadow-lg' key={i} to={url}>{text}</Link>
+                <Link className='text-sm border rounded-full px-2 py-1 mr-1 hover:shadow-lg' key={i} to={url}>{text}</Link>
               ))}
             </div>
-          </div>
         </div>
       </div>
     </>
