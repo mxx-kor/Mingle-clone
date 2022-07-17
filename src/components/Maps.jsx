@@ -29,7 +29,6 @@ export const Maps = () => {
 
   const onToggle = () => {
     setToggle((previous) => !previous)
-    console.log(toggle)
   }
 
   useEffect(() => {
@@ -105,8 +104,8 @@ export const Maps = () => {
   return (
     <>
       {toggle ? 
-        <div className='absolute z-10'>
-          <div className='w-full h-screen'>
+        <div className='absolute flex z-10'>
+          <div className='w-[500px] h-screen'>
             <form className="inputForm" onSubmit={handleSubmit}>
               <input 
                 className='dark:bg-gray-200 w-11/12 border shadow-sm outline-none p-2 text-black hover:shadow-lg' 
@@ -114,7 +113,7 @@ export const Maps = () => {
                 onChange={onChange} 
                 value={InputText} 
               />
-              <button className='w-1/12 justify-center items-center' type="submit">검색</button>
+              <button className='w-10 dark:bg-gray-900 justify-center items-center' type="submit">검색</button>
             </form>
             <div id="result-list" className='h-[83%] overflow-y-auto dark:bg-gray-900 dark:text-gray-200 bg-white border'>
               {placeList.map((item, i) => (
@@ -141,19 +140,31 @@ export const Maps = () => {
                 </div>
               ))}
             </div>
-            <div className='flex w-full justify-center items-center mt-4' id="pagination"></div>
+            <div className='flex dark:bg-gray-900 w-full justify-center items-center mt-4' id="pagination"></div>
           </div>
-        </div> : ''
-      }
-      <div className='lg:w-full relative'>
-        <button className='items-center absolute top-2/4 z-10' onClick={onToggle}>목록보기</button>
-          <div id="myMap" className='h-screen text-black'>
-            <div className='absolute z-10 top-2'>
+          <div className='h-screen z-10'>
+            <div className='mt-2'>
               {links.slice(0,-1).map(({ url, text }, i) => (
-                <Link className='text-sm border rounded-full px-2 py-1 mr-1 hover:shadow-lg' key={i} to={url}>{text}</Link>
+                <Link className='text-sm text-black border rounded-full px-2 py-1 mr-1 hover:shadow-lg' key={i} to={url}>{text}</Link>
               ))}
             </div>
-        </div>
+            <div className='absolute top-2/4'>
+              <button className='text-gray-200 bg-gray-900 px-2 py-1 rounded-xl' onClick={onToggle}>{toggle ? "<" : ">"}</button>
+            </div>
+          </div>
+        </div> : <div className='absolute h-screen z-10'>
+            <div className='mt-2'>
+              {links.slice(0,-1).map(({ url, text }, i) => (
+                <Link className='text-sm text-black border rounded-full px-2 py-1 mr-1 hover:shadow-lg' key={i} to={url}>{text}</Link>
+              ))}
+            </div>
+            <div className='absolute top-2/4'>
+              <button className='text-gray-200 bg-gray-900 px-2 py-1 rounded-xl' onClick={onToggle}>{toggle ? "<" : ">"}</button>
+            </div>
+          </div>
+      }
+      <div className='lg:w-full relative'>
+        <div id="myMap" className='h-screen'></div>
       </div>
     </>
   )
