@@ -74,7 +74,7 @@ export const Maps = () => {
         el.className = "text-xl dark:bg-gray-900 dark:text-gray-200 bg-white border rounded-lg px-2 mr-4"
 
         if (i === pagination.current) {
-          el.className = 'on text-xl dark:bg-gray-400 dark:text-gray-200 bg-white border rounded-lg px-2 mr-4'
+          el.className = 'on text-xl dark:bg-gray-400 dark:text-gray-200 bg-gray-200 border rounded-lg px-2 mr-4'
         } else {
           el.onclick = (function (i) {
             return function () {
@@ -105,7 +105,7 @@ export const Maps = () => {
     <>
       {toggle ? 
         <div className='absolute flex z-10'>
-          <div className='w-[500px] h-screen'>
+          <div className='w-[500px] dark:bg-gray-900 bg-gray-100 h-screen'>
             <form className="inputForm" onSubmit={handleSubmit}>
               <input 
                 className='dark:bg-gray-200 w-11/12 border shadow-sm outline-none p-2 text-black hover:shadow-lg' 
@@ -115,7 +115,7 @@ export const Maps = () => {
               />
               <button className='w-10 dark:bg-gray-900 justify-center items-center' type="submit">검색</button>
             </form>
-            <div id="result-list" className='h-[83%] overflow-y-auto dark:bg-gray-900 dark:text-gray-200 bg-white border'>
+            <div id="result-list" className='h-[85%] overflow-y-auto dark:bg-gray-900 dark:text-gray-200 bg-white border'>
               {placeList.map((item, i) => (
                 <div 
                   className='cursor-pointer hover:outline outline-1 rounded-lg my-3 py-2' 
@@ -148,8 +148,8 @@ export const Maps = () => {
                 <Link className='text-sm text-black border rounded-full px-2 py-1 mr-1 hover:shadow-lg' key={i} to={url}>{text}</Link>
               ))}
             </div>
-            <div className='absolute top-2/4'>
-              <button className='text-gray-200 bg-gray-900 px-2 py-1 rounded-xl' onClick={onToggle}>{toggle ? "<" : ">"}</button>
+            <div className='absolute top-2/4 text-xl'>
+              <button className='dark:text-gray-200 dark:bg-gray-900 bg-white opacity-90 px-2 py-1 rounded-xl hover:bg-gray-300' onClick={onToggle}>{toggle ? "<" : ">"}</button>
             </div>
           </div>
         </div> : <div className='absolute h-screen z-10'>
@@ -159,7 +159,7 @@ export const Maps = () => {
               ))}
             </div>
             <div className='absolute top-2/4'>
-              <button className='text-gray-200 bg-gray-900 px-2 py-1 rounded-xl' onClick={onToggle}>{toggle ? "<" : ">"}</button>
+              <button className='dark:text-gray-200 dark:bg-gray-900 bg-white opacity-90 px-2 py-1 rounded-xl hover:bg-gray-300' onClick={onToggle}>{toggle ? "<" : ">"}</button>
             </div>
           </div>
       }
