@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/mingle-clone/static/css/main.e18beb16.css",
+    "main.js": "/mingle-clone/static/js/main.c19463ba.js",
+    "index.html": "/mingle-clone/index.html",
+    "main.e18beb16.css.map": "/mingle-clone/static/css/main.e18beb16.css.map",
+    "main.c19463ba.js.map": "/mingle-clone/static/js/main.c19463ba.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e18beb16.css",
+    "static/js/main.c19463ba.js"
+  ]
+}
