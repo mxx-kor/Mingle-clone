@@ -104,7 +104,7 @@ export const Maps = () => {
   return (
     <>
       {toggle ? 
-        <div className='absolute flex z-10'>
+        <div className='translate-x-0 duration-500 absolute flex z-10'>
           <div className='w-[500px] dark:bg-gray-900 bg-gray-100 h-screen'>
             <form className="inputForm" onSubmit={handleSubmit}>
               <input 
@@ -152,16 +152,57 @@ export const Maps = () => {
               <button className='dark:text-gray-200 dark:bg-gray-900 bg-white opacity-90 px-2 py-1 rounded-xl hover:bg-gray-300' onClick={onToggle}>{toggle ? "<" : ">"}</button>
             </div>
           </div>
-        </div> : <div className='absolute h-screen z-10'>
+        </div> 
+        : 
+        <div className='-translate-x-[500px] duration-500 absolute flex z-10'>
+          <div className='w-[500px] dark:bg-gray-900 bg-gray-100 h-screen'>
+            <form className="inputForm" onSubmit={handleSubmit}>
+              <input 
+                className='dark:bg-gray-200 w-11/12 border shadow-sm outline-none p-2 text-black hover:shadow-lg' 
+                placeholder="검색어를 입력하세요" 
+                onChange={onChange} 
+                value={InputText} 
+              />
+              <button className='w-10 dark:bg-gray-900 justify-center items-center' type="submit">검색</button>
+            </form>
+            <div id="result-list" className='h-[85%] overflow-y-auto dark:bg-gray-900 dark:text-gray-200 bg-white border'>
+              {placeList.map((item, i) => (
+                <div 
+                  className='cursor-pointer hover:outline outline-1 rounded-lg my-3 py-2' 
+                  onClick={() => {
+                    setInputText(item.place_name);
+                    setPlace(item.place_name);
+                  }} 
+                  key={i}
+                  >
+                  <div>
+                    <span>{i + 1}. {item.place_name}</span>
+                    {item.road_address_name ? (
+                      <div>
+                        <span>{item.road_address_name}</span>
+                        <span>{item.address_name}</span>
+                      </div>
+                    ) : (
+                      <span>{item.address_name}</span>
+                    )}
+                    <span>{item.phone}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className='flex dark:bg-gray-900 w-full justify-center items-center mt-4' id="pagination"></div>
+          </div>
+          <div className='h-screen z-10'>
             <div className='mt-2'>
               {links.slice(0,-1).map(({ url, text }, i) => (
                 <Link className='text-sm text-black border rounded-full px-2 py-1 mr-1 hover:shadow-lg' key={i} to={url}>{text}</Link>
               ))}
             </div>
-            <div className='absolute top-2/4'>
+            <div className='absolute top-2/4 text-xl'>
               <button className='dark:text-gray-200 dark:bg-gray-900 bg-white opacity-90 px-2 py-1 rounded-xl hover:bg-gray-300' onClick={onToggle}>{toggle ? "<" : ">"}</button>
             </div>
           </div>
+        </div>
       }
       <div className='lg:w-full relative'>
         <div id="myMap" className='h-screen'></div>
