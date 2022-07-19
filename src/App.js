@@ -12,7 +12,7 @@ const App = () => {
         <div className={darkTheme ? 'dark' : ''}>
             <div className="dark:bg-gray-900 bg-gray-100 dark:text-gray-200 black min-h-screen">
                 <Switch>
-                    <Route exact path='/' element={<Main darkTheme={darkTheme} setDarkTheme={setDarkTheme} />} />
+                    <Route exact path='/mingle-clone' element={<Main darkTheme={darkTheme} setDarkTheme={setDarkTheme} />} />
                     <Route path='/*' element={<Routes darkTheme={darkTheme} setDarkTheme={setDarkTheme} />} />
                     <Route exact path='/maps' element={<Maps />} />
                 </Switch>
