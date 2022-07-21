@@ -8,7 +8,7 @@ const { kakao } = window;
 
 export const Maps = () => {
   const { searchTerm, setSearchTerm } = useResultContext()
-  const [InputText, setInputText] = useState(searchTerm);
+  const [InputText, setInputText] = useState(searchTerm ? searchTerm : "");
   const [place, setPlace] = useState(searchTerm);
   const [placeList, setplaceList] = useState([]);
   const [toggle, setToggle] = useState(true);
