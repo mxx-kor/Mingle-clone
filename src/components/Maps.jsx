@@ -205,7 +205,7 @@ export const Maps = () => {
         </div>
       }
       <div className='lg:w-full relative'>
-        <div id="myMap" className='h-screen'></div>
+        <div id="myMap" className='h-screen text-black'></div>
       </div>
     </>
   )
