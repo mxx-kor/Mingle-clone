@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/mingle-clone/static/css/main.e18beb16.css",
-    "main.js": "/mingle-clone/static/js/main.15d8fd5e.js",
+    "main.css": "/mingle-clone/static/css/main.5bd0b5ca.css",
+    "main.js": "/mingle-clone/static/js/main.abae2f68.js",
     "index.html": "/mingle-clone/index.html",
-    "main.e18beb16.css.map": "/mingle-clone/static/css/main.e18beb16.css.map",
-    "main.15d8fd5e.js.map": "/mingle-clone/static/js/main.15d8fd5e.js.map"
+    "main.5bd0b5ca.css.map": "/mingle-clone/static/css/main.5bd0b5ca.css.map",
+    "main.abae2f68.js.map": "/mingle-clone/static/js/main.abae2f68.js.map"
   },
   "entrypoints": [
-    "static/css/main.e18beb16.css",
-    "static/js/main.15d8fd5e.js"
+    "static/css/main.5bd0b5ca.css",
+    "static/js/main.abae2f68.js"
   ]
 }
